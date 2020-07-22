@@ -107,24 +107,23 @@ func updateArticle(w http.ResponseWriter, r *http.Request) {
 	// once again, we will need to parse the path parameters
 	vars := mux.Vars(r)
 	// we will need to extract the `id` of the article we
-	// wish to delete
+	// wish to update
 	id := vars["id"]
 
 	// we then need to loop through all our articles
 	for index, article := range Articles {
 
+		//get the body of our PUT request
 		reqBody, _ := ioutil.ReadAll(r.Body)
 
-		//var article Article
-
+		// unmarshal this into a new Article struct
+		// append this to our Articles array.
 		json.Unmarshal(reqBody, &article)
-		// update our global Articles array to include
-		// our new Article
 
 		// if our id path parameter matches one of our
 		// articles
 		if article.Id == id {
-			// updates our Articles array to remove the
+			// updates our Articles array to update the
 			// article
 			Articles = append(Articles[index+1:], article)
 

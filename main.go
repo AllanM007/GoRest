@@ -37,6 +37,7 @@ func handleRequests() {
 	myRouter.HandleFunc("/article/{id}", returnSingleArticle)
 	myRouter.HandleFunc("/article", createNewArticle).Methods("POST")
 	myRouter.HandleFunc("/article/{id}", deleteArticle).Methods("DELETE")
+	myRouter.HandleFunc("/articles/{id}", updateArticle).Methods("PUT")
 	// finally, instead of passing in nil, we want
 	// to pass in our newly created router as the second
 	// argument
@@ -100,17 +101,28 @@ func updateArticle(w http.ResponseWriter, r *http.Request) {
 	// once again, we will need to parse the path parameters
 	vars := mux.Vars(r)
 	// we will need to extract the `id` of the article we
-	// wish to update
+	// wish to delete
 	id := vars["id"]
 
 	// we then need to loop through all our articles
 	for index, article := range Articles {
+
+		reqBody, _ := ioutil.ReadAll(r.Body)
+
+		//var article Article
+
+		json.Unmarshal(reqBody, &article)
+		// update our global Articles array to include
+		// our new Article
+
 		// if our id path parameter matches one of our
 		// articles
 		if article.Id == id {
 			// updates our Articles array to remove the
 			// article
-			Articles = append(Articles[:index], Articles[index+1:]...)
+			Articles = append(Articles[:index], article)
+
+			json.NewEncoder(w).Encode(article)
 		}
 	}
 }

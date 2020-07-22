@@ -56,11 +56,14 @@ func returnSingleArticle(w http.ResponseWriter, r *http.Request) {
 			json.NewEncoder(w).Encode(article)
 		}
 	}
+	fmt.Println("Endpoint Hit: returnSingleArticle")
 }
 
 func returnAllArticles(w http.ResponseWriter, r *http.Request) {
 	fmt.Printf("Endpoint Hit: returnAllArticles")
 	json.NewEncoder(w).Encode(Articles)
+
+	fmt.Println("Endpoint Hit: returnAllArticles")
 }
 
 func createNewArticle(w http.ResponseWriter, r *http.Request) {
@@ -75,6 +78,7 @@ func createNewArticle(w http.ResponseWriter, r *http.Request) {
 	Articles = append(Articles, article)
 
 	json.NewEncoder(w).Encode(article)
+	fmt.Println("Endpoint Hit: createNewArticle")
 }
 
 func deleteArticle(w http.ResponseWriter, r *http.Request) {
@@ -94,6 +98,8 @@ func deleteArticle(w http.ResponseWriter, r *http.Request) {
 			Articles = append(Articles[:index], Articles[index+1:]...)
 		}
 	}
+
+	fmt.Println("Endpoint Hit: deleteArticle")
 
 }
 
@@ -125,6 +131,8 @@ func updateArticle(w http.ResponseWriter, r *http.Request) {
 			json.NewEncoder(w).Encode(article)
 		}
 	}
+
+	fmt.Println("Endpoint Hit: updateArticle")
 }
 
 func main() {

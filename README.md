@@ -3,5 +3,5 @@
  - The API is able to perform basic endpoint functions:
  >CREATE
  >READ
- >PUT
+ >UPDATE
  >DELETE

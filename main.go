@@ -126,7 +126,7 @@ func updateArticle(w http.ResponseWriter, r *http.Request) {
 		if article.Id == id {
 			// updates our Articles array to remove the
 			// article
-			Articles = append(Articles[:index], article)
+			Articles = append(Articles[index+1:], article)
 
 			json.NewEncoder(w).Encode(article)
 		}
